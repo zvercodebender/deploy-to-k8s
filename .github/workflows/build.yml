@@ -13,7 +13,7 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          REPO: ${{ secrets.GIT_REPO }}/hello-py
+          REPO: ${{ secrets.DOCKER_REPO }}/hello-py
           XLD_USER: ${{ secrets.XLD_USER }}
           XLD_PASSWD: ${{ secrets.XLD_PASSWD }}
           XLD_URL: ${{ secrets.XLD_URL }}
