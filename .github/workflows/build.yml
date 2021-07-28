@@ -1,0 +1,22 @@
+name: Demo-Hello-Python
+on:
+  push:
+    branches:
+      - master
+jobs:
+  demo-hello-python-version:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello Python is at version ${{ steps.tagkit.outputs.tag }}"
+      - uses: actions/checkout@v2
+      - name: build
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          REPO: ${{ secrets.GIT_REPO }}/hello-py
+          XLD_USER: ${{ secrets.XLD_USER }}
+          XLD_PASSWD: ${{ secrets.XLD_PASSWD }}
+          XLD_URL: ${{ secrets.XLD_URL }}
+          XLR_URL: ${{ secrets.XLR_URL }}
+          GET_LOCAL: "N"
+        run: ./build.sh
