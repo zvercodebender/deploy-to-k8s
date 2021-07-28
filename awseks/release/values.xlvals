@@ -1,0 +1,7 @@
+# This file includes all non-secret values, you can add variables here and then refer them with '!value' tag in YAML files
+
+#DAI Deploy server URL
+DEPLOY_SERVER_URL=http://localhost:4516
+
+#DAI Deploy server username
+DEPLOY_SERVER_USERNAME=admin

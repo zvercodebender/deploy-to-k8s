@@ -1,0 +1,112 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+metadata:
+  home: digital_ai
+spec:
+- name: Digital_ai GitHub  Webhook
+  type: events.PostWebhookEndpoint
+  path: hellopy
+  authentication:
+    type: events.NoAuthentication
+- name: Digital_ai Deploy Server
+  type: xldeploy.XLDeployServer
+  url: !value "DEPLOY_SERVER_URL"
+  username: !value "DEPLOY_SERVER_USERNAME"
+  password: !value "DEPLOY_SERVER_PASSWORD"
+- template: K8 deployment Solution using DAI Release and Deploy
+  scheduledStartDate: 2021-06-14T09:00:00+02:00
+  phases:
+  - phase: Preparation
+    tasks:
+    - name: Get commit id from GitHub
+      type: xlrelease.ScriptTask
+      script: "merge_id = releaseVariables['git_commit_sha']\n\ncommit_id = merge_id\
+        \ [0:7]\n\nprint(commit_id)\n\nreleaseVariables['gitHash'] = commit_id"
+    - name: Housekeeping
+      type: xlrelease.ScriptTask
+      script: "import time\nfrom datetime import date\n\ncommit_id = releaseVariables['gitHash']\
+        \ \ntoday = date.today()\ntitle = \"Release : For Commit %s  to test DAI K8\
+        \ Solution on %s\" % ( commit_id, today )\nprint(title)\nrelease = getCurrentRelease()\n\
+        release.title = title\nreleaseApi.updateRelease(release)\ntime.sleep(100)"
+    color: '#0079BC'
+  - phase: Deploy to Test
+    tasks:
+    - name: Deploy to test
+      type: xldeploy.Deploy
+      server: Digital_ai Deploy Server
+      deploymentApplication: Applications/digital_ai/Testapp
+      deploymentVersion: "${gitHash}"
+      deploymentPackage: "Applications/digital_ai/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/digitial_ai/test_env
+    - name: Get Ingress Host
+      type: xld.GetCIMapPropertyKey
+      server: Digital_ai Deploy Server
+      ciID: Environments/digitial_ai/test_dict
+      ciPropertyName: entries
+      ciPropertyNameKey: ingress_host
+      variableMapping:
+        pythonScript.ciPropertyValue: "${ingress_test_server}"
+    - name: Verify Test Deployment
+      type: xlrelease.GateTask
+      description: "Verify Website:\n\n     http://${ingress_test_server}"
+    color: '#0079BC'
+  - phase: Deploy to Prod
+    tasks:
+    - name: Deploy to Prod
+      type: xldeploy.Deploy
+      server: Digital_ai Deploy Server
+      deploymentApplication: Applications/digital_ai/Testapp
+      deploymentVersion: "${gitHash}"
+      deploymentPackage: "Applications/digital_ai/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/digitial_ai/prod_env
+    - name: Get Ingress Host
+      type: xld.GetCIMapPropertyKey
+      server: Digital_ai Deploy Server
+      ciID: Environments/digitial_ai/prod_dict
+      ciPropertyName: entries
+      ciPropertyNameKey: ingress_host
+      variableMapping:
+        pythonScript.ciPropertyValue: "${ingress_prod_server}"
+    - name: Verify Prod Deployment
+      type: xlrelease.GateTask
+      description: "Verify Website:\n\n     http://${ingress_prod_server}"
+    color: '#0079BC'
+  variables:
+  - type: xlrelease.StringVariable
+    key: git_commit_sha
+  - type: xlrelease.StringVariable
+    key: gitHash
+    requiresValue: false
+    showOnReleaseStart: false
+  - type: xlrelease.StringVariable
+    key: ingress_test_server
+    requiresValue: false
+    showOnReleaseStart: false
+  - type: xlrelease.StringVariable
+    key: ingress_prod_server
+    requiresValue: false
+    showOnReleaseStart: false
+  scriptUsername: admin
+  scriptUserPassword: !value "RELEASE_ADMIN_PASSWORD"
+  riskProfile: Default risk profile
+- name: GitHub Webhook trigger
+  type: events.EventBasedTrigger
+  description: This trigger will start release when Pull request is merged on specified
+    git branch
+  mappedProperties:
+  - type: xlrelease.StringValue
+    targetProperty: releaseTitle
+    value: "Release from trigger for commit ${event.pull_request.merge_commit_sha}"
+  - type: xlrelease.StringValue
+    targetProperty: "variables[git_commit_sha]"
+    value: "${event.pull_request.merge_commit_sha}"
+  - type: xlrelease.StringValue
+    targetProperty: template
+    value: K8 deployment Solution using DAI Release and Deploy
+  triggerActionType: xlrelease.CreateReleaseFromTemplateAction
+  eventSource: Digital_ai GitHub  Webhook
+  eventType: events.HttpRequestEvent
+  eventFilter:
+    type: events.JythonEventFilter
+    expr: event.action ==  "closed"

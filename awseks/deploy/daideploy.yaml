@@ -1,0 +1,56 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+    - directory: Infrastructure/digitial_ai
+      children:
+          - name: AwsK8Cluster
+            type: k8s.Master
+            apiServerURL: !value "API_SERVER_URL"
+            isEKS: true
+            regionName: !value "REGION_NAME"
+            clusterName: !value "CLUSTER_NAME"
+            accessKey: !value "AWS_ACCESS_KEY"
+            accessSecret: !value "AWS_SECRET_KEY"
+            caCert: !value "CA_CERT"
+            children:
+                - name: test_namespace
+                  type: k8s.Namespace
+                  namespaceName: test
+                - name: prod_namespace
+                  type: k8s.Namespace
+                  namespaceName: prod
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/digitial_ai
+  children:
+  - name: test_env
+    type: udm.Environment
+    members:
+    - Infrastructure/digitial_ai/AwsK8Cluster/test_namespace
+    dictionaries:
+    - Environments/digitial_ai/test_dict
+  - name: test_dict
+    type: udm.Dictionary
+    entries:
+      ingress_host: !value "TEST_INGRESS_HOST"
+  - name: prod_dict
+    type: udm.Dictionary
+    entries:
+      ingress_host: !value "PROD_INGRESS_HOST"
+  - name: prod_env
+    type: udm.Environment
+    members:
+    - Infrastructure/digitial_ai/AwsK8Cluster/prod_namespace
+    dictionaries:
+    - Environments/digitial_ai/prod_dict
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+    - directory: Applications/digital_ai
+      children:
+          - name: Testapp
+            type: udm.Application
