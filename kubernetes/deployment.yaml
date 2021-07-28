@@ -34,7 +34,7 @@ spec:
         app: hello-py
     spec:
       containers:
-      - image: "{{git_repo}}:{{image_tag}}"
+      - image: "{{docker_repo}}:{{image_tag}}"
         name: hello-py
         ports:
           - containerPort: 5000
