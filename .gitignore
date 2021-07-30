@@ -1,1 +1,5 @@
+awseks/deploy/secrets.xlvals
+awseks/deploy/values.xlvals
+awseks/release/secrets.xlvals
+awseks/release/values.xlvals
 
