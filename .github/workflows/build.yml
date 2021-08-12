@@ -18,4 +18,5 @@ jobs:
           XLD_PASSWD: ${{ secrets.XLD_PASSWD }}
           XLD_URL: ${{ secrets.XLD_URL }}
           XLR_URL: ${{ secrets.XLR_URL }}
+          GET_LOCAL: "N"
         run: ./build.sh
