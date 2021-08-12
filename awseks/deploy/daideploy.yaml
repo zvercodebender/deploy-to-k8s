@@ -2,7 +2,7 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-    - directory: Infrastructure/digitial_ai
+    - directory: Infrastructure/digitial_ai_howto
       children:
           - name: AwsK8Cluster
             type: k8s.Master
@@ -24,14 +24,14 @@ spec:
 apiVersion: xl-deploy/v1
 kind: Environments
 spec:
-- directory: Environments/digitial_ai
+- directory: Environments/digitial_ai_howto
   children:
   - name: test_env
     type: udm.Environment
     members:
-    - Infrastructure/digitial_ai/AwsK8Cluster/test_namespace
+    - Infrastructure/digitial_ai_howto/AwsK8Cluster/test_namespace
     dictionaries:
-    - Environments/digitial_ai/test_dict
+    - Environments/digitial_ai_howto/test_dict
   - name: test_dict
     type: udm.Dictionary
     entries:
@@ -43,14 +43,14 @@ spec:
   - name: prod_env
     type: udm.Environment
     members:
-    - Infrastructure/digitial_ai/AwsK8Cluster/prod_namespace
+    - Infrastructure/digitial_ai_howto/AwsK8Cluster/prod_namespace
     dictionaries:
-    - Environments/digitial_ai/prod_dict
+    - Environments/digitial_ai_howto/prod_dict
 ---
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-    - directory: Applications/digital_ai
+    - directory: Applications/digitial_ai_howto
       children:
           - name: Testapp
             type: udm.Application
