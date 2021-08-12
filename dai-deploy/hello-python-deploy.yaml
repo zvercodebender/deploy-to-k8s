@@ -2,10 +2,10 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: Applications/digital_ai/Testapp
+- name: Applications/digital_ai_howto/Testapp
   type: udm.Application
   children:
-  - name: !format Applications/digital_ai/Testapp/%version%
+  - name: !format Applications/digital_ai_howto/Testapp/%version%
     type: udm.DeploymentPackage
     deployables:
     - name: hello-py-deploy.yaml
