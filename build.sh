@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export CLI_VERSION="10.0.0"
+export CLI_VERSION="10.2.0"
 TAG="$(git rev-parse --short HEAD)"
 #export VERSION="3.1.1"
 if [ -z "${TAG}" ]

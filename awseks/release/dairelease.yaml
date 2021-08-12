@@ -1,8 +1,14 @@
 ---
 apiVersion: xl-release/v1
 kind: Templates
+spec:
+- directory: digitial_ai_howto
+
+---
+apiVersion: xl-release/v1
+kind: Templates
 metadata:
-  home: digital_ai
+  home: digitial_ai_howto
 spec:
 - name: Digital_ai GitHub  Webhook
   type: events.PostWebhookEndpoint
@@ -28,21 +34,21 @@ spec:
       script: "import time\nfrom datetime import date\n\ncommit_id = releaseVariables['gitHash']\
         \ \ntoday = date.today()\ntitle = \"Release : For Commit %s  to test DAI K8\
         \ Solution on %s\" % ( commit_id, today )\nprint(title)\nrelease = getCurrentRelease()\n\
-        release.title = title\nreleaseApi.updateRelease(release)\ntime.sleep(100)"
+        release.title = title\nreleaseApi.updateRelease(release)\n"
     color: '#0079BC'
   - phase: Deploy to Test
     tasks:
     - name: Deploy to test
       type: xldeploy.Deploy
       server: Digital_ai Deploy Server
-      deploymentApplication: Applications/digital_ai/Testapp
+      deploymentApplication: Applications/digitial_ai_howto/Testapp
       deploymentVersion: "${gitHash}"
-      deploymentPackage: "Applications/digital_ai/Testapp/${gitHash}"
-      deploymentEnvironment: Environments/digitial_ai/test_env
+      deploymentPackage: "Applications/digitial_ai_howto/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/digitial_ai_howto/test_env
     - name: Get Ingress Host
       type: xld.GetCIMapPropertyKey
       server: Digital_ai Deploy Server
-      ciID: Environments/digitial_ai/test_dict
+      ciID: Environments/digitial_ai_howto/test_dict
       ciPropertyName: entries
       ciPropertyNameKey: ingress_host
       variableMapping:
@@ -56,14 +62,14 @@ spec:
     - name: Deploy to Prod
       type: xldeploy.Deploy
       server: Digital_ai Deploy Server
-      deploymentApplication: Applications/digital_ai/Testapp
+      deploymentApplication: Applications/digitial_ai_howto/Testapp
       deploymentVersion: "${gitHash}"
-      deploymentPackage: "Applications/digital_ai/Testapp/${gitHash}"
-      deploymentEnvironment: Environments/digitial_ai/prod_env
+      deploymentPackage: "Applications/digitial_ai_howto/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/digitial_ai_howto/prod_env
     - name: Get Ingress Host
       type: xld.GetCIMapPropertyKey
       server: Digital_ai Deploy Server
-      ciID: Environments/digitial_ai/prod_dict
+      ciID: Environments/digitial_ai_howto/prod_dict
       ciPropertyName: entries
       ciPropertyNameKey: ingress_host
       variableMapping:
@@ -97,16 +103,13 @@ spec:
   mappedProperties:
   - type: xlrelease.StringValue
     targetProperty: releaseTitle
-    value: "Release from trigger for commit ${event.pull_request.merge_commit_sha}"
+    value: "Release from trigger for commit ${event.after}"
   - type: xlrelease.StringValue
     targetProperty: "variables[git_commit_sha]"
-    value: "${event.pull_request.merge_commit_sha}"
+    value: "${event.after}"
   - type: xlrelease.StringValue
     targetProperty: template
     value: K8 deployment Solution using DAI Release and Deploy
   triggerActionType: xlrelease.CreateReleaseFromTemplateAction
   eventSource: Digital_ai GitHub  Webhook
   eventType: events.HttpRequestEvent
-  eventFilter:
-    type: events.JythonEventFilter
-    expr: event.action ==  "closed"
