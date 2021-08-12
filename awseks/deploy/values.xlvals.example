@@ -1,0 +1,15 @@
+# This file includes all non-secret values, you can add variables here and then refer them with '!value' tag in YAML files
+
+REGION_NAME=<aws_region_name>
+
+CLUSTER_NAME=<cluster_name>
+
+API_SERVER_URL=<api_server_url>
+
+CA_CERT=<ca_cert>
+
+#FQDN of test ingress host
+TEST_INGRESS_HOST=<test_ingress_host>
+
+#FQDN of prod ingress host
+PROD_INGRESS_HOST=<prod_ingress_host>
