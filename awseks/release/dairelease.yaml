@@ -34,7 +34,8 @@ spec:
       script: "import time\nfrom datetime import date\n\ncommit_id = releaseVariables['gitHash']\
         \ \ntoday = date.today()\ntitle = \"Release : For Commit %s  to test DAI K8\
         \ Solution on %s\" % ( commit_id, today )\nprint(title)\nrelease = getCurrentRelease()\n\
-        release.title = title\nreleaseApi.updateRelease(release)\n"
+        release.title = title\nreleaseApi.updateRelease(release)\n\
+        "
     color: '#0079BC'
   - phase: Deploy to Test
     tasks:
@@ -55,7 +56,7 @@ spec:
         pythonScript.ciPropertyValue: "${ingress_test_server}"
     - name: Verify Test Deployment
       type: xlrelease.GateTask
-      description: "Verify Website:\n\n     http://${ingress_test_server}"
+      description: "Verify Website:\n\nhttp://${ingress_test_server}"
     color: '#0079BC'
   - phase: Deploy to Prod
     tasks:
@@ -76,7 +77,7 @@ spec:
         pythonScript.ciPropertyValue: "${ingress_prod_server}"
     - name: Verify Prod Deployment
       type: xlrelease.GateTask
-      description: "Verify Website:\n\n     http://${ingress_prod_server}"
+      description: "Verify Website:\n\nhttp://${ingress_prod_server}"
     color: '#0079BC'
   variables:
   - type: xlrelease.StringVariable
