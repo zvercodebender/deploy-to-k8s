@@ -21,3 +21,5 @@ How to run this workflow:
 1. https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 2. https://aws.amazon.com/blogs/opensource/network-load-balancer-nginx-ingress-controller-eks/
 3. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+4. https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/setting-up-eksctl.html
+5. https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
