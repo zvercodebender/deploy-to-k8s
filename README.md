@@ -23,3 +23,4 @@ How to run this workflow:
 3. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 4. https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/setting-up-eksctl.html
 5. https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+6. https://docs.xebialabs.com/v.10.2/release/how-to/install-the-xl-cli#manage-the-xl-cli-config-file
