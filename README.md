@@ -17,3 +17,7 @@ How to run this workflow:
 ![image](https://user-images.githubusercontent.com/37649735/127658463-0c8c4a71-be28-4ccf-981d-1eb479249b69.png)
 8. Create a Pull request and merge it to master and see application is deployed to aws EKS cluster using DAI Release/Deploy Pipeline.
 
+# References:
+1. https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
+2. https://aws.amazon.com/blogs/opensource/network-load-balancer-nginx-ingress-controller-eks/
+3. https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
