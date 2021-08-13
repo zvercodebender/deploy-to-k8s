@@ -2,7 +2,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: Applications/digitial_ai_howto/Testapp
+- name: Applications/Digital_ai_howto/Testapp
   type: udm.Application
   children:
   - name: !format "%version%"

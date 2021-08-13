@@ -2,13 +2,13 @@
 apiVersion: xl-release/v1
 kind: Templates
 spec:
-- directory: digitial_ai_howto
+- directory: Digital_ai_howto
 
 ---
 apiVersion: xl-release/v1
 kind: Templates
 metadata:
-  home: digitial_ai_howto
+  home: Digital_ai_howto
 spec:
 - name: Digital_ai GitHub  Webhook
   type: events.PostWebhookEndpoint
@@ -41,14 +41,14 @@ spec:
     - name: Deploy to test
       type: xldeploy.Deploy
       server: Digital_ai Deploy Server
-      deploymentApplication: Applications/digitial_ai_howto/Testapp
+      deploymentApplication: Applications/Digital_ai_howto/Testapp
       deploymentVersion: "${gitHash}"
-      deploymentPackage: "Applications/digitial_ai_howto/Testapp/${gitHash}"
-      deploymentEnvironment: Environments/digitial_ai_howto/test_env
+      deploymentPackage: "Applications/Digital_ai_howto/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/Digital_ai_howto/test_env
     - name: Get Ingress Host
       type: xld.GetCIMapPropertyKey
       server: Digital_ai Deploy Server
-      ciID: Environments/digitial_ai_howto/test_dict
+      ciID: Environments/Digital_ai_howto/test_dict
       ciPropertyName: entries
       ciPropertyNameKey: ingress_host
       variableMapping:
@@ -62,14 +62,14 @@ spec:
     - name: Deploy to Prod
       type: xldeploy.Deploy
       server: Digital_ai Deploy Server
-      deploymentApplication: Applications/digitial_ai_howto/Testapp
+      deploymentApplication: Applications/Digital_ai_howto/Testapp
       deploymentVersion: "${gitHash}"
-      deploymentPackage: "Applications/digitial_ai_howto/Testapp/${gitHash}"
-      deploymentEnvironment: Environments/digitial_ai_howto/prod_env
+      deploymentPackage: "Applications/Digital_ai_howto/Testapp/${gitHash}"
+      deploymentEnvironment: Environments/Digital_ai_howto/prod_env
     - name: Get Ingress Host
       type: xld.GetCIMapPropertyKey
       server: Digital_ai Deploy Server
-      ciID: Environments/digitial_ai_howto/prod_dict
+      ciID: Environments/Digital_ai_howto/prod_dict
       ciPropertyName: entries
       ciPropertyNameKey: ingress_host
       variableMapping:
