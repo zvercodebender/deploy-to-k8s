@@ -35,7 +35,7 @@ spec:
         \ \ntoday = date.today()\ntitle = \"Release : For Commit %s  to test DAI K8\
         \ Solution on %s\" % ( commit_id, today )\nprint(title)\nrelease = getCurrentRelease()\n\
         release.title = title\nreleaseApi.updateRelease(release)\n\
-        "
+        time.sleep(100)\n"
     color: '#0079BC'
   - phase: Deploy to Test
     tasks:
