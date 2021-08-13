@@ -2,11 +2,10 @@ version: "3.9"
 
 services:
   xlr:
-    image: xebialabs/xl-release:10.0
+    image: xebialabs/xl-release:10.2
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=admin
-      - XL_LICENSE=LS0tIExpY2Vuc2UgLS0tDQpMaWNlbnNlIHZlcnNpb246IDMNClByb2R1Y3Q6IFhMIFJlbGVhc2UNCkxpY2Vuc2VkIHRvOiBYZWJpYUxhYnMNCkNvbnRhY3Q6IFhlYmlhTGFicyBJbnRlcm5hbCBVc2UgT25seSA8aW5mb0B4ZWJpYWxhYnMuY29tPg0KRXhwaXJlcyBhZnRlcjogMjAzNy0wMS0wMQ0KU3VwcG9ydCBwb2xpY3k6IDh4NQ0KRWRpdGlvbjogRW50ZXJwcmlzZQ0KLS0tIFNpZ25hdHVyZSAoU0hBMXdpdGhEU0EpIC0tLQ0KMzAyZDAyMTQzN2ZkMjUwMjA5NTU1MDIzOTc2Mzk1NDVjZjZmYTQ5ZGE3NTE2NmMwMDIxNTAwOTEzZTlkZTc4YTk3MTE0OWU5OWVhOTk3YjYNCjVhNmRmNTQ1MzEwOTAxDQotLS0gRW5kIG9mIFNpZ25hdHVyZSAtLS0=
     links:
       - xld
     ports:
@@ -14,10 +13,9 @@ services:
 
 
   xld:
-    image: xebialabs/xl-deploy:10.0
+    image: xebialabs/xl-deploy:10.2
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=admin
-      - XL_LICENSE=LS0tIExpY2Vuc2UgLS0tCkxpY2Vuc2UgdmVyc2lvbjogMwpQcm9kdWN0OiBYTCBEZXBsb3kKTGljZW5zZWQgdG86IFhlYmlhTGFicwpDb250YWN0OiBYZWJpYUxhYnMgSW50ZXJuYWwgVXNlIE9ubHkgPGluZm9AeGViaWFsYWJzLmNvbT4KRXhwaXJlcyBhZnRlcjogMjAzNy0wMS0wMQpMaWNlbnNlZCBudW1iZXIgb2YgQ0lzOiB4bC5TYXRlbGxpdGU9MTAwMApMaWNlbnNlZCBwbHVnaW46IGpib3NzYXMtcGx1Z2luCkxpY2Vuc2VkIHBsdWdpbjogd21xLXBsdWdpbgpMaWNlbnNlZCBwbHVnaW46IG9zYi1wbHVnaW4KTGljZW5zZWQgcGx1Z2luOiB0b21jYXQtcGx1Z2luCkxpY2Vuc2VkIHBsdWdpbjogd3BzLXBsdWdpbgpMaWNlbnNlZCBwbHVnaW46IHdpbmRvd3MtcGx1Z2luCkxpY2Vuc2VkIHBsdWdpbjogaWlzLXBsdWdpbgpMaWNlbnNlZCBwbHVnaW46IGJpenRhbGstcGx1Z2luCkxpY2Vuc2VkIHBsdWdpbjogd2xzLXBsdWdpbgpMaWNlbnNlZCBwbHVnaW46IHdhcy1wbHVnaW4KTGljZW5zZWQgcGx1Z2luOiBnbGFzc2Zpc2gtcGx1Z2luCkxpY2Vuc2VkIHBsdWdpbjogamJvc3NkbS1wbHVnaW4KU3VwcG9ydCBwb2xpY3k6IDh4NQpFZGl0aW9uOiBFbnRlcnByaXNlCi0tLSBTaWduYXR1cmUgKFNIQTF3aXRoRFNBKSAtLS0KMzAyYzAyMTQzNTg3ZThhNDA0ZDQyMzJiZDQ3ZTY5NjU5Mjc4MTczNjIxYWRiMTM1MDIxNDY2Y2U1YTFkZmQ5NjFiZmE0NDg4ZjRlMmYwMzYKYmEzMzg5MGU2N2ViCi0tLSBFbmQgb2YgU2lnbmF0dXJlIC0tLQo=
     ports:
       - "4516:4516"
